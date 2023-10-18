@@ -1,0 +1,111 @@
+<html>
+<head>
+	<title>Randomized Reading Quiz</title>
+	<script>
+		//Array of questions and answers
+		var questions = [
+			{
+				question: "Who wrote 'To Kill A Mockingbird'?",
+				options: ["Agatha Christie", "J.K. Rowling", "Harper Lee", "J.D. Salinger"],
+				answer: "Harper Lee"
+			},
+			{
+				question: "In 'The Great Gatsby', who is Nick Carraway's neighbor?",
+				options: ["Jay Gatsby", "Daisy Buchanan", "Tom Buchanan", "Myrtle Wilson"],
+				answer: "Jay Gatsby"
+			},
+			{
+				question: "What is the name of the magical school in the 'Harry Potter' series?",
+				options: ["Hogwarts", "Beauxbatons", "Durmstrang", "Ilvermorny"],
+				answer: "Hogwarts"
+			},
+			{
+				question: "What is the name of the protagonist in 'The Catcher In The Rye'?",
+				options: ["Atticus Finch", "Holden Caulfield", "Scout Finch", "Paul Baumer"],
+				answer: "Holden Caulfield"
+			},
+			{
+				question: "What is the name of the main character in 'Pride and Prejudice'?",
+				options: ["Elizabeth Bennet", "Jane Bennet", "Lydia Bennet", "Mary Bennet"],
+				answer: "Elizabeth Bennet"
+			}
+		];
+
+		//Function to shuffle the questions array
+		function shuffle(array) {
+		    var currentIndex = array.length, temporaryValue, randomIndex;
+
+		    while (0 !== currentIndex) {
+
+		        randomIndex = Math.floor(Math.random() * currentIndex);
+		        currentIndex -= 1;
+
+		        temporaryValue = array[currentIndex];
+		        array[currentIndex] = array[randomIndex];
+		        array[randomIndex] = temporaryValue;
+		    }
+
+		    return array;
+		}
+
+		//Randomly shuffle the questions array
+		shuffle(questions);
+
+		//Function to generate the HTML for a question
+		function generateQuestionHTML(index, question) {
+			var optionsHTML = "";
+
+			//Generate the HTML for each option
+			for (var i = 0; i < question.options.length; i++) {
+				optionsHTML += "<label><input type='radio' name='question" + index + "' value='" + question.options[i] + "'> " + question.options[i] + "</label><br>";
+			}
+
+			//Return the full HTML for the question
+			return "<div><h3>" + question.question + "</h3>" + optionsHTML + "</div>";
+		}
+
+		//Function to generate the HTML for the quiz
+		function generateQuizHTML() {
+			var quizHTML = "";
+
+			//Generate the HTML for each question
+			for (var i = 0; i < questions.length; i++) {
+				quizHTML += generateQuestionHTML(i, questions[i]);
+			}
+
+			//Insert the quiz HTML into the page
+			document.getElementById("quiz-content").innerHTML = quizHTML;
+		}
+
+		//Function to check the quiz answers
+		function checkQuiz() {
+			var score = 0;
+
+			//Check each question's answer
+			for (var i = 0; i < questions.length; i++) {
+				var selectedAnswer = document.querySelector('input[name="question' + i + '"]:checked').value;
+
+				if (selectedAnswer === questions[i].answer) {
+					score++;
+				}
+			}
+
+			//Display the score
+			document.getElementById("score").innerHTML = "You got " + score + " out of " + questions.length + " correct!";
+		}
+	</script>
+</head>
+<body>
+	<h1>Randomized Reading Quiz</h1>
+	<div id="quiz-content"></div>
+	<button onclick="checkQuiz()">Submit Quiz</button>
+	<div id="score"></div>
+
+	<script>
+		//Generate the quiz HTML when the page loads
+		window.onload = function() {
+			generateQuizHTML();
+		};
+	</script>
+</body>
+</html>
