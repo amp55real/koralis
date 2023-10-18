@@ -400,14 +400,14 @@ a {
 
 .zoom {
   border-radius: 10%;
-  transition: transform .2s;
+  transition: transform .3s;
   /* Animation */
   width: 200px;
   height: 200px;
 }
 
 .zoom:hover {
-  transform: scale(1.2);
+  transform: scale(110%);
   /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
