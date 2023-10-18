@@ -1,1 +1,54 @@
+<html>
+<head>
+    <title>IXL Math Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Math Quiz</h1>
+    <div id="quiz-container">
+        <h2 id="question"></h2>
+        <input type="number" id="answer">
+        <button onclick="checkAnswer()">Check Answer</button>
+        <p id="result"></p>
+        <button onclick="generateQuestion()">Next Question</button>
+    </div>
 
+    <script>
+        let num1, num2;
+
+        // Generate a random question
+        function generateQuestion() {
+            num1 = Math.floor(Math.random() * 20) + 1;
+            num2 = Math.floor(Math.random() * 20) + 1;
+
+            const questionElement = document.getElementById("question");
+            questionElement.textContent = `${num1} + ${num2} = ?`;
+
+            document.getElementById("answer").value = "";
+            document.getElementById("result").textContent = "";
+        }
+
+        // Check the user's answer
+        function checkAnswer() {
+            const userAnswer = Number(document.getElementById("answer").value);
+            const correctAnswer = num1 + num2;
+            const resultElement = document.getElementById("result");
+
+            if (userAnswer === correctAnswer) {
+                resultElement.textContent = "Correct!";
+            } else {
+                resultElement.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
+            }
+        }
+
+        // On page load, generate the first question
+        window.onload = function () {
+            generateQuestion();
+        }
+    </script>
+</body>
+</html>
